@@ -14,12 +14,35 @@ for(let i = 1; i != 0; i++){
     //faz o registro da venda 
     if(resposta == 1){
 
-        console.log('\nQUal foi a quantidade de vendas feita?');
+        console.log('\nQual foi a quantidade de vendas feita?');
         let quant = Number(ler());
         
-        for(let i = 0; i <= quant; i ++ ){
+        for(let i = 1; i <= quant; i ++ ){
         funcoes.registrarVenda(vendas);
+        }
+    
     }
 
+    //cancela uma venda de acordo com o id
+    else if(resposta == 2){
+    funcoes.cancelarVenda(vendas);    
     }
+
+    //lista as vendas por data (OBS: isso foi MUITO trabalhoso)
+    else if(resposta == 3){
+        funcoes.listarDia(vendas);
+    }
+
+
+    else if(resposta == 0){
+        console.log("Saindo do programa....");
+        break;
+    }
+
+    else{
+        console.log('Código incorreto ');
+        
+    }
+
+
 }

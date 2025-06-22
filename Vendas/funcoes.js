@@ -2,7 +2,7 @@ import prompt from "prompt-sync"
 const ler = prompt();
 
 export function apresentarPrograma(){
-    console.log("--------------------------------------\n-   Seja bem vindo à Loja de Tenis   -\n--------------------------------------\n");
+    console.log("--------------------------------------\n-   Seja bem vindo à Loja de Tênis   -\n--------------------------------------\n");
 }
 
 
@@ -19,14 +19,21 @@ export function apresentarMenu(){
       
   } 
   export function registrarVenda(vendas) {
+
+    console.log('\nMe informe a marca do tênis');
+    let marca = ler();
+
     console.log('\nMe informe o modelo do Tênis');
     let modelo = ler();
 
     console.log('\nMe informe o número do tênis vendido');
     let numero = Number(ler());
+    
+        console.log('\nMe informe a cor do tênis vendido');
+        let cor = ler();
 
-    console.log('\nMe informe a cor do tênis vendido');
-    let cor = ler();
+    console.log('\nMe informe o valor do tênis');
+    let valor = Number(ler());
 
     console.log('\nMe informe o vendedor do tênis');
     let vendedor = ler();
@@ -43,20 +50,103 @@ export function apresentarMenu(){
 
         if (existe) {
             console.log('ID de compra inválido pois já foi utilizado, me informe outro.');
-        } else {
+        } 
+        
+        else {
             break;
         }
     }
 
     const venda = {
+        marcaTenis: marca,
         modeloTenis: modelo,
         numeroTenis: numero,
         corTenis: cor,
         vendedorTenis: vendedor,
         dataVenda: data,
+        valorVenda: valor,
         idCompra: id
     };
 
     vendas.push(venda);
-    console.log('Venda registrada com sucesso!');
+    console.log('\nVenda registrada com sucesso!');
+}
+
+export function cancelarVenda(vendas){
+    console.log('\nMe informe o id da venda que você deseja cancelar');
+    let idCancela = Number(ler());
+
+    let index = vendas.findIndex(v => v.idCompra === idCancela);
+
+    if(index > -1){
+        console.log(`Cancelando venda de id ${idCancela}...`);
+
+        vendas.splice(index,1);        
+    }
+
+    else{
+        console.log('Não existe venda com esse id ');
+    }
+
+}
+
+export function listarDia(vendas){
+    
+    while (true) {
+        
+        console.log(`me informe o dia que você deseja a lista de vendas`);
+        let dia = new Date(ler());
+        let diaDi = dia.toDateString();
+
+
+    const existe = vendas.some(v => new Date(v.dataVenda).toDateString() === diaDi);
+
+  // Filtra as vendas do dia desejado
+  let vendasDoDia = vendas.filter(v => new Date(v.dataVenda).toDateString() === diaDi);
+
+  if (vendasDoDia.length > 0) {
+        console.log(`Aqui vai uma lista das vandas realizadas em ${dia}: `);
+
+        
+
+
+            let i = 1;
+
+            for (let item of vendasDoDia) {
+                console.log(`\n${i}° Venda:\n`);
+                console.log(`Marca: ${item.marcaTenis}`);
+                console.log(`Modelo: ${item.modeloTenis}`);
+                console.log(`Número: ${item.numeroTenis}`);
+                console.log(`Cor: ${item.corTenis}`);
+                console.log(`Valor Da Venda: ${item.valorVenda}`);
+                console.log(`Vendedor: ${item.vendedorTenis}`);
+                console.log(`Data: ${new Date(item.dataVenda).toLocaleDateString()}`);
+                console.log(`ID da Compra: ${item.idCompra}\n`);
+                i++;
+            }
+
+            break;
+        
+    }   
+    
+    else {
+        console.log('\nSinto muito, não tem venda registrada nesse dia, deseja consultar outro dia?');
+        console.log('1. Sim');
+        console.log('2. Não');
+        let r = Number(ler());
+
+        if(r == 1){
+            console.log('Me informe o novo dia');
+            dia = new Date(ler());
+        }
+
+        else if(r == 2){
+
+            console.log('Voltando para o menu...');
+        break;}
+    }
+}
+
+
+
 }
