@@ -1,6 +1,21 @@
 import prompt from "prompt-sync"
 const ler = prompt();
 
+
+
+export async function contar(limite) {
+    for (let contador = 0; contador <= limite; contador++) {
+      await sleep(500);
+    }
+  }
+  
+  
+  function sleep(milisegundos) {
+    return new Promise((ok, nok) => {
+      setTimeout(ok, milisegundos);
+    })
+  }
+
 export function apresentarPrograma(){
     console.log("--------------------------------------\n-   Seja bem vindo à Loja de Tênis   -\n--------------------------------------\n");
 }
@@ -18,7 +33,7 @@ export function apresentarMenu(){
       ---------------------------------`);
       
   } 
-  export function registrarVenda(vendas) {
+  export async function registrarVenda(vendas) {
 
     console.log('\nMe informe a marca do tênis');
     let marca = ler();
@@ -69,10 +84,11 @@ export function apresentarMenu(){
     };
 
     vendas.push(venda);
+    
     console.log('\nVenda registrada com sucesso!');
 }
 
-export function cancelarVenda(vendas){
+export async function cancelarVenda(vendas){
     console.log('\nMe informe o id da venda que você deseja cancelar');
     let idCancela = Number(ler());
 
@@ -90,19 +106,19 @@ export function cancelarVenda(vendas){
 
 }
 
-export function listarDia(vendas){
+export async function listarDia(vendas){
     
-    while (true) {
+    for(let i =1; i != 0; i++){
         
         console.log(`me informe o dia que você deseja a lista de vendas`);
         let dia = new Date(ler());
         let diaDi = dia.toDateString();
 
 
-    const existe = vendas.some(v => new Date(v.dataVenda).toDateString() === diaDi);
+    
 
   // Filtra as vendas do dia desejado
-  let vendasDoDia = vendas.filter(v => new Date(v.dataVenda).toDateString() === diaDi);
+  let vendasDoDia = vendas.filter(v => v.dataVenda.toDateString() === diaDi);
 
   if (vendasDoDia.length > 0) {
         console.log(`Aqui vai uma lista das vandas realizadas em ${dia}: `);
@@ -110,7 +126,7 @@ export function listarDia(vendas){
         
 
 
-            let i = 1;
+            let a = 1;
 
             for (let item of vendasDoDia) {
                 console.log(`\n${i}° Venda:\n`);
@@ -120,9 +136,9 @@ export function listarDia(vendas){
                 console.log(`Cor: ${item.corTenis}`);
                 console.log(`Valor Da Venda: ${item.valorVenda}`);
                 console.log(`Vendedor: ${item.vendedorTenis}`);
-                console.log(`Data: ${new Date(item.dataVenda).toLocaleDateString()}`);
+                console.log(`Data: ${(item.dataVenda).toLocaleDateString()}`);
                 console.log(`ID da Compra: ${item.idCompra}\n`);
-                i++;
+                a++;
             }
 
             break;
@@ -146,6 +162,47 @@ export function listarDia(vendas){
         break;}
     }
 }
+
+
+
+}
+
+export async function listarPeriodo(vendas){
+
+    
+    console.log('\nMe informe a data de início que você deseja realizar a busca');
+    let dataComeco = new Date(ler());
+    
+    console.log('\nMe informe a data final que você deseja realizar a busca');
+    let datafim = new Date(ler());
+
+    //Vai fazer tipo uma array onde estaram filtradas todas as vendas entre a data de inicio e a de fim
+    //  deixando mais facil de retornar  com exatidão
+    let dataPeriodo = vendas.filter(v =>{
+      return v.dataVenda >= dataComeco && v.dataVenda <= datafim; 
+    });
+
+    if(dataPeriodo.length > 0){
+
+        console.log('\nAqui vai uma lista de todas as vendas realizada nesse periodo:\n ');
+      for(let item of dataPeriodo){
+        let a = 1;
+        console.log(`\n${a}° Venda:\n`);
+        console.log(`Marca: ${item.marcaTenis}`);
+        console.log(`Modelo: ${item.modeloTenis}`);
+        console.log(`Número: ${item.numeroTenis}`);
+        console.log(`Cor: ${item.corTenis}`);
+        console.log(`Valor Da Venda: ${item.valorVenda}`);
+        console.log(`Vendedor: ${item.vendedorTenis}`);
+        console.log(`Data: ${(item.dataVenda).toLocaleDateString()}`);
+        console.log(`ID da Compra: ${item.idCompra}\n`);
+        a++;
+      }
+      
+    }
+    else{
+        console.log(`Não temos vendas entre ${dataComeco.toLocaleDateString()} e ${datafim.toLocaleDateString()}`);
+    }
 
 
 

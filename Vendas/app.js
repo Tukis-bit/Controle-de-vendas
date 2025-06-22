@@ -4,12 +4,15 @@ const ler = prompt();
 let vendas = [];
 
 funcoes.apresentarPrograma();
+await funcoes.contar(1);
 
 //Repete o menu enquanto o usuário não sair
 for(let i = 1; i != 0; i++){
 
     funcoes.apresentarMenu();
     let resposta = Number(ler());
+
+    await funcoes.contar(1);
 
     //faz o registro da venda 
     if(resposta == 1){
@@ -33,6 +36,10 @@ for(let i = 1; i != 0; i++){
         funcoes.listarDia(vendas);
     }
 
+    else if(resposta == 4){
+        funcoes.listarPeriodo(vendas);
+    }
+
 
     else if(resposta == 0){
         console.log("Saindo do programa....");
@@ -41,7 +48,7 @@ for(let i = 1; i != 0; i++){
 
     else{
         console.log('Código incorreto ');
-        
+
     }
 
 
