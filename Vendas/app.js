@@ -40,6 +40,18 @@ for(let i = 1; i != 0; i++){
         funcoes.listarPeriodo(vendas);
     }
 
+    else if(resposta == 5){
+        funcoes.listarVendedor(vendas);        
+    }
+
+    else if(resposta == 6){
+        funcoes.listarMarca(vendas);
+    }
+
+    else if(resposta == 7){
+        funcoes.listarPorPreco(vendas);
+    }
+
 
     else if(resposta == 0){
         console.log("Saindo do programa....");
